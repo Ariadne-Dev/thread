@@ -1,0 +1,23 @@
+{
+  "name": "thread",
+  "version": "0.1.0",
+  "description": "Explain git diffs for learning and review — offline, no API key — Ariadne",
+  "type": "module",
+  "bin": {
+    "thread": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "explain": "tsx src/cli.ts explain",
+    "dev": "tsx src/cli.ts"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
