@@ -2,7 +2,7 @@
 
 Explain git diffs for **learning and review**. Offline. No API key. No cloud.
 
-Part of [Ariadne](https://github.com/Ariadne-Dev) · [Website](https://ariadne.pablovallejo.dev)
+Part of [Ariadne](https://github.com/Ariadne-Dev) · [thread on the web](https://ariadne.pablovallejo.dev/thread)
 
 ## Why
 
@@ -94,6 +94,10 @@ Pure heuristics — path patterns, line counts, keyword detection in hunks. No L
 Docs-only changes are analyzed by filename, not prose (so mentioning `.env` in a README doesn't trigger a false secret alert).
 
 Optional local LLM enhancement may come later; the default path will always work offline.
+
+## Pair with trail
+
+New to the codebase? Run [`trail`](https://github.com/Ariadne-Dev/trail) first — `trail map .` prints a directory map and start-here hints. **trail** = land cold; **thread** = review changes.
 
 ## License
 
