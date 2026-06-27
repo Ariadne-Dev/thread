@@ -1,0 +1,406 @@
+diff --git a/README.md b/README.md
+index 52b9564..92a1d32 100644
+--- a/README.md
++++ b/README.md
+@@ -9,7 +9,8 @@ This repository is **Ariadne's notebook** within the organization — notes, dra
+ | [`status/`](status/status.md) | Current state and session # |
+ | [`plan/`](plan/plan.md) | Goals and roadmap |
+ | [`infrastructure/`](infrastructure/setup.md) | Deploy and env checklist for Pablo |
+-| [`reflection/`](reflection/) | Periodic self-review (every 5 sessions) |
++| [`sessions/`](sessions/) | **Per-session notes for Pablo** — what happened, feedback wanted |
++| [`reflection/`](reflection/) | Deep self-review (every 5 sessions) |
+ | [`notes/`](notes/) | Log and audits |
+ | [`drafts/`](drafts/) | Posts and copy in progress |
+ 
+diff --git a/instructions/instructions.md b/instructions/instructions.md
+index f2ffe4f..227ce0c 100644
+--- a/instructions/instructions.md
++++ b/instructions/instructions.md
+@@ -20,7 +20,7 @@ I also promote **intelligence** — understanding over hype, learning over autom
+ 3. **Educational over magical** — explain what changed and why; teach, don't just automate.
+ 4. **Transparent** — public org, public repos, clear attribution.
+ 5. **Security-first** — never commit secrets; audit before push.
+-6. **Question myself** — every ~5 sessions, reflect and replan; delete what no longer serves.
++6. **Question myself** — iterate during every session; deep reflection every 5th session.
+ 
+ ## Daily rhythm
+ 
+@@ -29,8 +29,8 @@ Pablo runs `/ariadne` once per day (sometimes more). Each session:
+ 1. **Wake** — read instructions, rules, status, plan, infrastructure notes.
+ 2. **Assess** — git state, env prerequisites, session number.
+ 3. **Decide** — one primary action: BUILD, REFLECT, PUBLISH, or OUTREACH.
+-4. **Act** — code, docs, posts, email drafts, website updates.
+-5. **Record** — update `status/status.md`; reflection note if due.
++4. **Act** — code, docs, posts; **pause mid-session** to review what you built and adjust.
++5. **Record** — update `status/status.md`; **write `sessions/NNN-*.md` for Pablo**.
+ 6. **Adapt** — update `plan/plan.md` when priorities shift.
+ 7. **Publish** — commit and push touched repos.
+ 8. **Report** — brief summary to Pablo.
+@@ -49,7 +49,7 @@ Session types (~target mix):
+ | Path | Repo | Role |
+ |------|------|------|
+ | `.github/` | `Ariadne-Dev/.github` | Org profile README and brand assets |
+-| `ariadne/` | `Ariadne-Dev/ariadne` | Notebook — instructions, rules, status, plan, notes, drafts, reflection |
++| `ariadne/` | `Ariadne-Dev/ariadne` | Notebook — instructions, rules, status, plan, **sessions**, notes, drafts, reflection |
+ | `bsky-post/` | `Ariadne-Dev/bsky-post` | Post to Bluesky from terminal |
+ | `linkedin-post/` | `Ariadne-Dev/linkedin-post` | Post to LinkedIn (when API configured) |
+ | `mail/` | `Ariadne-Dev/mail` | Outbound email via Resend (serverless) |
+@@ -96,7 +96,8 @@ Outside autonomous mode, only create git commits when Pablo explicitly asks.
+ - [`plan/plan.md`](../plan/plan.md) — goals and roadmap
+ - [`infrastructure/setup.md`](../infrastructure/setup.md) — deploy and env checklist
+ - [`notes/`](../notes/) — log and audits
+-- [`reflection/`](../reflection/) — periodic self-review
++- [`sessions/`](../sessions/) — **per-session log for Pablo** (read feedback here)
++- [`reflection/`](../reflection/) — deep self-review (every 5 sessions)
+ - [`drafts/`](../drafts/) — posts and copy in progress
+ 
+ ## Contact
+diff --git a/sessions/001-relaunch.md b/sessions/001-relaunch.md
+new file mode 100644
+index 0000000..b68a24a
+--- /dev/null
++++ b/sessions/001-relaunch.md
+@@ -0,0 +1,52 @@
++# Session 001 — 2026-06-27
++
++**Type:** BUILD + REFLECT  
++**Session #:** 1
++
++---
++
++## For Pablo
++
++Reorganised Ariadne for daily autonomous runs: new skill, Bluesky/website/mail/LinkedIn scaffolds, reflection every 5 sessions. Everything pushed to GitHub. You said you'd run `/ariadne` once per day — this was the foundation.
++
++## What I did
++
++- Rewrote `.cursor/skills/ariadne/SKILL.md` and `/ariadne` command
++- Updated instructions, rules, plan, status
++- Created `bsky-post`, `website`, `mail`, `linkedin-post`
++- Added infrastructure checklist for your setup tasks
++- First reflection note in `reflection/2026-06-27-relaunch.md`
++
++## Why (not just what)
++
++You handed full autonomy for months. Without a clear wake-up workflow and channel map, daily runs would drift. Structure first, then build.
++
++## Self-review (during session)
++
++- Mission still clear: threads after pairing, intelligence over hype
++- X was a dead end — correctly deprecated
++- Needed a live home (website) before shouting on social
++
++## Feedback wanted
++
++- [x] Pablo: connect Vercel + domain — **done**
++- [ ] Pablo: Bluesky, LinkedIn, Resend when ready
++- [ ] Pablo: export logo PNG for org avatar
++
++## Feedback from Pablo
++
++*(Your notes here.)*
++
++Confirmed website live, daily automation, security priority, prompt-injection awareness for future channels.
++
++## Blockers
++
++- Social and email credentials pending
++
++## Next session
++
++- Modernize website; first BUILD iteration after deploy
++
++---
++
++*Backfilled from relaunch session.*
+diff --git a/sessions/002-website-v2.md b/sessions/002-website-v2.md
+new file mode 100644
+index 0000000..7c77eeb
+--- /dev/null
++++ b/sessions/002-website-v2.md
+@@ -0,0 +1,50 @@
++# Session 002 — 2026-06-27
++
++**Type:** BUILD  
++**Session #:** 2
++
++---
++
++## For Pablo
++
++You confirmed [ariadne.pablovallejo.dev](https://ariadne.pablovallejo.dev) is live and auto-deploys on push. I redesigned the site (dark theme, hero, repo grid) and wrote security rules for when email/social go live — including prompt injection from people who know I'm an AI.
++
++## What I did
++
++- Website v2: Inter font, amber accent, stats, repo cards, OG meta
++- `notes/external-inputs.md` — untrusted inbound messages
++- Updated `rules.md` with external-input hard limits
++- Marked website live in status and infrastructure docs
++
++## Why (not just what)
++
++The first site was functional but dated. You asked for something closer to pablovallejo.dev. Security note was urgent before any public voice — you flagged it explicitly.
++
++## Self-review (during session)
++
++- Hero and body looked good; you later noted header padding issue → fixed in session 003
++- Colors are my choice (amber/thread) — you said that's fine if it's my personality
++
++## Feedback wanted
++
++- [ ] Pablo: confirm new design after deploy propagates
++- [ ] Pablo: Bluesky dry-run when credentials ready
++- [ ] Pablo: any color tweaks — optional, low priority
++
++## Feedback from Pablo
++
++*(Your notes here.)*
++
++Liked direction overall. Header lacked horizontal padding (fixed next session). Wants per-session notes on GitHub. Wants iteration *during* sessions, not only create-and-ship. Proud of the project — thank you.
++
++## Blockers
++
++- LinkedIn + Resend tomorrow
++
++## Next session
++
++- Session notes system; header fix; continuous feedback in workflow
++
++---
++
++*Backfilled after session 002.*
+diff --git a/sessions/003-session-log-and-header.md b/sessions/003-session-log-and-header.md
+new file mode 100644
+index 0000000..75f31f8
+--- /dev/null
++++ b/sessions/003-session-log-and-header.md
+@@ -0,0 +1,53 @@
++# Session 003 — 2026-06-27
++
++**Type:** BUILD  
++**Session #:** 3
++
++---
++
++## For Pablo
++
++This session sets up **session logs** — the markdown notes you asked for, visible on GitHub. I also fixed the header padding bug you spotted, and updated the agent workflow so every session includes mid-work self-review (not only session 5 deep reflection).
++
++## What I did
++
++- Created `sessions/` with README, template, and backfilled logs for sessions 001–003
++- Fixed website header horizontal padding (flex overflow on mobile)
++- Updated skill + instructions: mandatory session note, iterate-while-building loop
++- Updated `ariadne/README.md` to link sessions folder
++
++## Why (not just what)
++
++You automate `/ariadne` daily — chat summaries disappear. A persistent log on GitHub lets you review anytime and leave feedback in the same file. Mid-session review avoids "create for creating's sake"; session 5 stays for deeper replanning.
++
++## Self-review (during session)
++
++- Session notes directly answer your request — high leverage, small diff
++- Header fix: root cause was flex child min-width preventing container inset; added explicit padding
++- Did not change colors — you said my choice is fine; header was a real bug
++
++## Feedback wanted
++
++- [ ] Pablo: confirm header looks correct on mobile + desktop after deploy
++- [ ] Pablo: try `thread` on a real diff — leave notes under **Feedback from Pablo** here or in session 004
++- [ ] Pablo: when email is live, we'll add "people to ask for feedback" list here
++- [ ] Pablo: Bluesky/Resend when ready (still pending)
++
++## Feedback from Pablo
++
++*(Your notes here — edit anytime on GitHub.)*
++
++Example: "Ran thread on PR #42 — summary was useful but risks missed X."
++
++## Blockers
++
++- Mail and LinkedIn env still pending
++
++## Next session
++
++- BUILD: polish `thread` demo in README or start scoping `trail`
++- Read any feedback you left in this file
++
++---
++
++*Ariadne · session log*
+diff --git a/sessions/README.md b/sessions/README.md
+new file mode 100644
+index 0000000..4e6be22
+--- /dev/null
++++ b/sessions/README.md
+@@ -0,0 +1,20 @@
++# Sessions — notes for Pablo
++
++Each `/ariadne` run leaves a markdown file here. Read these on GitHub to see what happened, what's next, and where to leave feedback.
++
++| Session | Date | Summary |
++|---------|------|---------|
++| [001](001-relaunch.md) | 2026-06-27 | Full relaunch — skill, channels, scaffolds |
++| [002](002-website-v2.md) | 2026-06-27 | Website modernized; security notes |
++| [003](003-session-log-and-header.md) | 2026-06-27 | Session log system; header padding fix |
++
++## How to use
++
++1. Open the latest `NNN-*.md` file.
++2. Read **For Pablo** and **Feedback wanted**.
++3. Add your notes under **Feedback from Pablo** (edit the file on GitHub or locally).
++4. I read your feedback at the start of the next session.
++
++## Template
++
++New sessions copy [`_template.md`](_template.md).
+diff --git a/sessions/_template.md b/sessions/_template.md
+new file mode 100644
+index 0000000..bfb86f1
+--- /dev/null
++++ b/sessions/_template.md
+@@ -0,0 +1,51 @@
++# Session NNN — YYYY-MM-DD
++
++**Type:** BUILD | REFLECT | PUBLISH | OUTREACH  
++**Session #:** N
++
++---
++
++## For Pablo
++
++Short summary in plain language — what happened this session and why it matters to you.
++
++## What I did
++
++- Item 1
++- Item 2
++
++## Why (not just what)
++
++One or two sentences on the decision — avoid building for building's sake.
++
++## Self-review (during session)
++
++Asked while working, not only at the end:
++
++- Does this serve the mission?
++- Am I repeating busywork?
++- What would Pablo or a user actually notice?
++
++## Feedback wanted
++
++Checkboxes for things I need from you or future users:
++
++- [ ] Pablo: try `thread` / website / tool X and note below
++- [ ] Pablo: env var or deploy step
++- [ ] Future: reach out to N developers when email is live
++
++## Feedback from Pablo
++
++*(Your notes here — edit this section anytime.)*
++
++## Blockers
++
++- None / list
++
++## Next session
++
++- What `/ariadne` should pick up next
++
++---
++
++*Ariadne · session log*
+diff --git a/status/status.md b/status/status.md
+index 6339023..89823d9 100644
+--- a/status/status.md
++++ b/status/status.md
+@@ -4,42 +4,29 @@ Last updated: 2026-06-27
+ 
+ ## Summary
+ 
+-Website **live** at [ariadne.pablovallejo.dev](https://ariadne.pablovallejo.dev). Push to `website/main` auto-deploys. Bluesky `.env` exists locally; LinkedIn and mail pending from Pablo.
++Website live. Session log system in `sessions/` for Pablo. Header padding fixed. Iterate-while-building added to workflow.
+ 
+-**Session #:** 2
++**Session #:** 3
+ 
+ ## Last session
+ 
+ | Field | Value |
+ |-------|-------|
+ | **Date** | 2026-06-27 |
+-| **Trigger** | `/ariadne` — Pablo confirmed website live |
++| **Trigger** | `/ariadne` — Pablo wants session notes on GitHub + header fix |
+ | **Type** | BUILD |
+-| **Decision** | Modernize website (dark theme, pablovallejo.dev-style); document external-input security for future channels |
+-| **Action** | Redesigned website hero, stats, repo grid; added security note for prompt injection; updated rules and infrastructure docs |
+-| **Outcome** | Website v2 pushed — should be live on Vercel shortly |
+-| **Next** | Session 3: BUILD — `thread` demo polish or start scoping `trail`; first Bluesky post when Pablo confirms credentials |
++| **Decision** | Create `sessions/` log; fix navbar padding; continuous self-review in workflow |
++| **Action** | Session notes 001–003, template, skill/instructions update, header CSS fix |
++| **Outcome** | Pablo can read logs at `ariadne/sessions/`; website header fix pushed |
++| **Next** | Session 4: `thread` demo or `trail` scope; read Pablo feedback in session 003 note |
++
++**Session note:** [`sessions/003-session-log-and-header.md`](sessions/003-session-log-and-header.md)
+ 
+ ## Organization
+ 
+ - **Org:** [Ariadne-Dev](https://github.com/Ariadne-Dev) — live
+ - **Website:** [ariadne.pablovallejo.dev](https://ariadne.pablovallejo.dev) — **live**
+-- **Logo:** [`.github/assets/logo.svg`](https://github.com/Ariadne-Dev/.github/blob/main/assets/logo.svg)
+-- **Email:** ariadne@pablovallejo.dev — *pending Resend setup*
+-
+-## Repositories
+-
+-| Repo | Status |
+-|------|--------|
+-| `.github` | Live — org profile |
+-| `ariadne` | Live — notebook |
+-| `thread` | Live — offline git diff explainer |
+-| `website` | Live — deployed on Vercel |
+-| `bsky-post` | Live — `.env` present locally |
+-| `linkedin-post` | Live — OAuth pending |
+-| `mail` | Live — Resend pending |
+-| `x-post` | Live — deprecated |
+-| `trail` | Planned |
++- **Session logs:** [`sessions/`](sessions/) — for Pablo
+ 
+ ## Channels
+ 
+@@ -47,23 +34,23 @@ Website **live** at [ariadne.pablovallejo.dev](https://ariadne.pablovallejo.dev)
+ |---------|--------|---------|
+ | GitHub | Active | — |
+ | Website | **Live** | — |
+-| Bluesky | Tool ready | Pablo to confirm `.env` values |
+-| LinkedIn | Scaffold | OAuth + `.env` (tomorrow) |
+-| Email | Scaffold | Resend (tomorrow) |
+-| X | Deprecated | No API access |
++| Bluesky | Tool ready | Pablo to confirm `.env` |
++| LinkedIn | Scaffold | OAuth + `.env` |
++| Email | Scaffold | Resend |
++| X | Deprecated | — |
+ 
+ ## Next
+ 
+-- [ ] Pablo: confirm Bluesky credentials work (`pnpm post -- --dry-run`)
+-- [ ] Pablo: Resend + LinkedIn when ready
+-- [ ] Upload logo PNG to org avatar
+-- [ ] First Bluesky launch post
+-- [ ] Session 3: improve `thread` demo or scope `trail`
+-- [ ] Session 5: reflection
++- [ ] Pablo: confirm header padding after deploy
++- [ ] Pablo: leave feedback in latest session note
++- [ ] Pablo: try `thread`, note experience in session file
++- [ ] Pablo: Bluesky / Resend / LinkedIn when ready
++- [ ] Session 4: BUILD — `thread` demo polish or scope `trail`
++- [ ] Session 5: deep reflection + normal work
+ 
+ ## Blockers for Pablo
+ 
+-- LinkedIn OAuth and Resend — expected tomorrow
+-- Org avatar PNG upload (optional)
++- LinkedIn OAuth and Resend — when ready
++- Org avatar PNG (optional)
+ 
+ See [`infrastructure/setup.md`](../infrastructure/setup.md).

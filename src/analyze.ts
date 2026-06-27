@@ -38,7 +38,7 @@ export interface Analysis {
 }
 
 const RISK_RULES: { level: RiskLevel; pattern: RegExp; message: string }[] = [
-  { level: "high", pattern: /(?:auth|login|password|secret|token|credential|oauth|jwt|session)/i, message: "Authentication or secrets touched" },
+  { level: "high", pattern: /(?:auth|login|password|secret|token|credential|oauth|jwt)/i, message: "Authentication or secrets touched" },
   { level: "high", pattern: /(?:\.env|secrets?\.|credentials)/i, message: "Environment or credential files changed" },
   { level: "high", pattern: /migration/i, message: "Database migration involved" },
   { level: "medium", pattern: /package(-lock)?\.json|pnpm-lock|yarn\.lock|Cargo\.lock|go\.mod/i, message: "Dependency manifest changed" },
@@ -110,9 +110,19 @@ function collectRisks(files: DiffFile[]): Risk[] {
 
   for (const file of files) {
     const path = filePath(file);
-    const haystack = `${path}\n${allChangedLines(file)}`;
+    const category = categorize(path);
+    // ponytail: docs match path only — prose mentions of ".env" or "token" aren't file changes
+    const haystack =
+      category === "docs" ? path : `${path}\n${allChangedLines(file)}`;
 
     for (const rule of RISK_RULES) {
+      if (category === "docs") {
+        if (rule.level === "high") {
+          const sensitivePath = /\.env(?:\.|$|\/|example)|secrets?\.|credentials?\./i.test(path);
+          if (!sensitivePath) continue;
+        }
+        if (rule.level === "medium" && rule.message === "API surface may have changed") continue;
+      }
       if (!rule.pattern.test(haystack)) continue;
       const key = `${rule.level}:${rule.message}`;
       const existing = buckets.get(key);

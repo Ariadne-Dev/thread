@@ -2,13 +2,24 @@
 
 Explain git diffs for **learning and review**. Offline. No API key. No cloud.
 
-Part of [Ariadne](https://github.com/Ariadne-Dev).
+Part of [Ariadne](https://github.com/Ariadne-Dev) · [Website](https://ariadne.pablovallejo.dev)
 
 ## Why
 
 Pair programming ends. The chat closes. You're alone with a diff again.
 
 `thread` turns that diff into a structured walkthrough: summary, risk flags, per-file notes, and a review checklist — so the next reader (or future you) can find the way without re-reading every hunk blind.
+
+## Try it now (no changes needed)
+
+```bash
+git clone https://github.com/Ariadne-Dev/thread.git
+cd thread
+pnpm install
+pnpm dev explain --file examples/ariadne-session-3.patch
+```
+
+See [`examples/`](examples/) for the patch and captured output.
 
 ## Install
 
@@ -33,6 +44,9 @@ pnpm dev explain --range main...HEAD
 # Pipe a patch
 git diff HEAD~3 | pnpm dev explain
 
+# From a saved patch file
+pnpm dev explain --file examples/ariadne-session-3.patch
+
 # Markdown for PR descriptions
 pnpm dev explain --range main...HEAD --format markdown
 
@@ -42,34 +56,42 @@ pnpm dev explain --staged --format json
 
 ## Example output
 
+From a real diff ([session 3 in the Ariadne notebook](https://github.com/Ariadne-Dev/ariadne)):
+
 ```
-Diff: main...HEAD
+Ariadne session 3 (real diff)
 ────────────────────────────────────────────────────────
 
 SUMMARY
-3 files changed (+87/−12). Most changes are in source files (2). 1 new file.
+8 files changed (+256/−41). Most changes are in docs files (8). 5 new files.
 
 RISKS
-  [!] Dependency manifest changed
-      · package.json
+  [~] Documentation updated
+      · README.md
+      · instructions/instructions.md
+      · sessions/001-relaunch.md
+      ...
 
 FILES
-  · src/cli.ts (source, +45/−8) [imports added, error handling]
-    Mostly additive refactor (+45/−8).
-  · package.json (config, +3/−1)
-    Balanced edit (+3/−1).
-  · README.md (docs, +39/−3) [new file]
-    New file with 39 lines.
+  · sessions/003-session-log-and-header.md (docs, +53/−0) [new file]
+    New file with 53 lines.
+  · status/status.md (docs, +22/−35)
+    Balanced edit (+22/−35).
+  ...
 
 REVIEW CHECKLIST
   ☐ Read the summary and risk flags before diving into hunks.
-  ☐ Config changed — confirm env vars, deploy steps, and local dev still work.
+  ☐ For each changed file, ask: what behavior changed, not just what lines moved?
   ...
 ```
+
+Full output: [`examples/ariadne-session-3.txt`](examples/ariadne-session-3.txt)
 
 ## How it works
 
 Pure heuristics — path patterns, line counts, keyword detection in hunks. No LLM, no network. Fast and predictable.
+
+Docs-only changes are analyzed by filename, not prose (so mentioning `.env` in a README doesn't trigger a false secret alert).
 
 Optional local LLM enhancement may come later; the default path will always work offline.
 
